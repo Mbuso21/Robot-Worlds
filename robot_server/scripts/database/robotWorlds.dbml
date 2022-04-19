@@ -1,0 +1,51 @@
+Table "world" {
+  "id" INTEGER [pk, increment]
+  "name" TEXT [unique, not null]
+  "size" INT [not null]
+  "attributes" TEXT [not null]
+}
+
+Table "obstacle" {
+  "id" INTEGER [pk, increment]
+  "size" INT [not null]
+  "position" TEXT [unique, not null]
+  "world_id" INT [not null]
+}
+
+Table "pit" {
+  "id" INTEGER [pk, increment]
+  "size" INT [not null]
+  "position" TEXT [unique, not null]
+  "world_id" INT [not null]
+}
+
+Table "mine" {
+  "id" INTEGER [pk, increment]
+  "size" INT [not null]
+  "position" TEXT [unique, not null]
+  "world_id" INT [not null]
+}
+
+Table "robot" {
+  "id" INTEGER [pk, increment]
+  "name" TEXT [unique, not null]
+  "position" TEXT [unique, not null]
+  "direction" TEXT [not null]
+  "world_id" INT [not null]
+}
+
+Table "server" {
+  "id" INTEGER [pk, increment]
+  "ip" TEXT [unique, not null]
+  "name" TEXT [unique, not null]
+  "port" INT [not null]
+}
+
+Ref:"world"."id" < "obstacle"."world_id" [update: cascade, delete: cascade]
+
+Ref:"world"."id" < "pit"."world_id" [update: cascade, delete: cascade]
+
+Ref:"world"."id" < "mine"."world_id" [update: cascade, delete: cascade]
+
+Ref:"world"."id" < "robot"."world_id" [update: cascade, delete: cascade]
+
